@@ -125,6 +125,7 @@ class Space extends Phaser.Scene {
             },
         });
     }
+
     update() {
         // update tile sprite
         this.starfield.tilePositionY -= 4;  
@@ -135,7 +136,20 @@ class Space extends Phaser.Scene {
             this.rocket.p1Rocket.update();
 
             // check collisions
-            this.checkCollision(this.p1Rocket);
+            this.checkAndHandleCollisions(this.p1Rocket);
+        }
+    }
+
+    // allow collision handling for both rockets for each spaceship
+    checkAndHandleCollisions(rocket) {
+        if (this.checkCollision(rocket, this.ship03)) {
+            this.shipExplode(this.ship03);
+        }
+        if (this.checkCollision(rocket, this.ship02)) {
+            this.shipExplode(this.ship02);
+        }
+        if (this.checkCollision(rocket, this.ship01)) {
+            this.shipExplode(this.ship01);
         }
     }
 
@@ -162,16 +176,6 @@ class Space extends Phaser.Scene {
             this.p1Rocket.reset();
         } 
 
-        // score add and repaint
-        this.p1Score += ship.points;
-        this.scoreLeft.text = this.p1Score; 
-
-        // update high score if necessary
-        if (this.p1Score > gameData.highScore) {
-            gameData.highScore = this.p1Score;
-        }
-        this.highScoreText.text = `High Score: ${gameData.highScore}`;
-
         // play randomized explosion sound
         this.playRandomExplosion();
     }
@@ -184,16 +188,30 @@ class Space extends Phaser.Scene {
 
     }
     
-    // Mouse Button Down for future use
-    // handlePointerDown(pointer) {
-    //     if (!this.gameOver && !this.p1Rocket.isFiring) {
-    //         if (pointer.x < game.config.width / 2) {
-    //             // P1
-    //             this.p1Rocket.isFiring = true;
-    //             this.sound.play('sfx_rocket');
-    //         }
-    //     }
-    // }
+    // Mouse Button Down fire
+    handlePointerDown(pointer) {
+        if (!this.gameOver && !this.p1Rocket.isFiring) {
+            if (pointer.x < game.config.width / 2) {
+                // P1
+                this.p1Rocket.isFiring = true;
+                this.sound.play('sfx_rocket');
+            }
+        }
+    }
+
+    // Fire laser
+    rocketFire(){
+        // Create laser
+        this.laser = new Laser(this, game.config.width/2, game.config.height - borderUISize - borderPadding, 'laser').setOrigin(this.p1Rocket.x, this.p1Rocket.y + 2);
+        
+        // Check for collisions
+        while(this.laser.y < 0){
+            this.checkAndHandleCollisions(this.laser);
+        }
+        
+        // laser sfx
+        //this.play('laser_beam');
+    }
 
     endGame() {
         // add end game sfx
