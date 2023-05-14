@@ -16,8 +16,7 @@ class Laser extends Phaser.GameObjects.Sprite{
         // Destroy laser
         if(this.y <= 0) {
             this.destroy();
-}
-
+        }   
     }
 
     // speed setter
