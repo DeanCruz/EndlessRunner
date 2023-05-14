@@ -14,15 +14,15 @@ class Menu extends Phaser.Scene {
       this.load.audio('sfx_explosion5', './assets/bassXPL.wav');
       // add end round audio
       this.load.audio('power_down', './assets/8bitpowerdwn.wav');
+      this.load.image('starfield', './assets/starfield2new.png');
   }
   
   create() {
       // menu text configuration
       let menuConfig = {
-          fontFamily: 'Courier',
+          fontFamily: 'Major Mono Display',
           fontSize: '28px',
-          backgroundColor: '#F3B141',
-          color: '#843605',
+          color: '#FFFFFF',
           align: 'right',
           padding: {
               top: 5,
@@ -30,21 +30,31 @@ class Menu extends Phaser.Scene {
           },
           fixedWidth: 0
       }
+      let titleConfig = {
+        fontFamily: 'Major Mono Display',
+        fontSize: '48px', 
+        color: '#FFFFFF',
+        align: 'right',
+        padding: {
+            top: 5,
+            bottom: 5,
+        },
+        fixedWidth: 0
+    }    
+
+      this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);
       
       // show menu text
-      this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Endless Runner', menuConfig).setOrigin(0.5);
-      this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows or mouse to move', menuConfig).setOrigin(0.5);
-      menuConfig.backgroundColor = '#00FF00';
-      menuConfig.color = '#000';
-      this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Endless Space', titleConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2, 'Use mouse to move, click to shoot', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press space to start', menuConfig).setOrigin(0.5);
 
       // define keys
-      keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-      keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+      keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   update() {
-      if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+      if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
         // Novice mode
         game.settings = {
           spaceshipSpeed: 3,
@@ -52,13 +62,13 @@ class Menu extends Phaser.Scene {
         this.sound.play('sfx_select');
         this.scene.start("spaceScene", game.settings);
       }
-      if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
-        // Expert mode
-        game.settings = {
-          spaceshipSpeed: 6,
-        }
-        this.sound.play('sfx_select');
-        this.scene.start("spaceScene", game.settings);
-      }
+      // if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+      //   // Expert mode
+      //   game.settings = {
+      //     spaceshipSpeed: 6,
+      //   }
+      //   this.sound.play('sfx_select');
+      //   this.scene.start("spaceScene", game.settings);
+      // }
     }
 }

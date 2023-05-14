@@ -1,16 +1,15 @@
-class Spaceship extends Phaser.GameObjects.Sprite{
+class Meteor extends Phaser.GameObjects.Sprite{
     constructor(scene, x, y, texture, frame, pointValue){
         super(scene, x, y, texture, frame);
         scene.add.existing(this);
         // point value
-        this.points = pointValue;   
-        this.moveSpeed = game.settings.spaceshipSpeed;
+        this.moveSpeed = 3;
     }
 
     update() {
 
         // move spaceship down
-        this.y += this.moveSpeed;
+        this.y -= this.moveSpeed;
 
         // wrap around from left edge to right edge
         if(this.y <= 0 - this.width) {
@@ -23,6 +22,7 @@ class Spaceship extends Phaser.GameObjects.Sprite{
         this.x = game.config.width;
     }
 
+    // speed setter
     setMoveSpeed(newSpeed) {
         this.moveSpeed = newSpeed;
     }

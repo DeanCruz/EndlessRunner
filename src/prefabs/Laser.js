@@ -4,22 +4,19 @@ class Laser extends Phaser.GameObjects.Sprite{
         scene.add.existing(this);
         // point value
         this.moveSpeed = 7;
+        this.setScale(0.1);
     }
 
     update() {
 
-        // move spaceship down
+        // move laser up
         this.y -= this.moveSpeed;
 
-        // wrap around from left edge to right edge
-        if(this.y <= 0 - this.width) {
-            this.reset();
-        }
-    }
-
-    // position reset
-    reset() {
-        this.x = game.config.width;
+        // // Destroy laser
+        // Destroy laser
+        if(this.y <= 0) {
+            this.destroy();
+        }   
     }
 
     // speed setter
