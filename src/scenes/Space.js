@@ -40,6 +40,8 @@ class Space extends Phaser.Scene {
         this.load.image('laser', './assets/laser.png');
         // load spritesheet
         this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
+        // load music
+        this.load.audio('backgroundMusic', ['./assets/background.mp3']);
         // starfield
         this.load.image('starfield', './assets/starfield2new.png');
     }
