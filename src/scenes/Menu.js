@@ -45,8 +45,7 @@ class Menu extends Phaser.Scene {
       this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0,0);
       
       // show menu text
-      this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Endless Space', titleConfig).setOrigin(0.5);
-      this.add.text(game.config.width/2, game.config.height/2, 'Use mouse to move, click to shoot', menuConfig).setOrigin(0.5);
+      this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Endless Invasion', titleConfig).setOrigin(0.5);
       this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press space to start', menuConfig).setOrigin(0.5);
 
       // define keys

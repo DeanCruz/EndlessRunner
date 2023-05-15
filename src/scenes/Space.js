@@ -96,6 +96,14 @@ class Space extends Phaser.Scene {
         this.add.rectangle(0, 0, borderUISize, game.config.height, 0x000000).setOrigin(0,0);
         this.add.rectangle(game.config.width - borderUISize, 0, borderUISize, game.config.height, 0x000000).setOrigin(0,0);
 
+        // Add text for controls
+        this.controlsText = this.add.text(game.config.width / 2, game.config.height - borderPadding, 'Use mouse to move, click to shoot', {
+            fontFamily: 'Major Mono Display',
+            fontSize: '16px',
+            color: '#FFFFFF',
+        }).setOrigin(0.5, 1);
+  
+
         // initialize starting positions player
         this.startingPlayer1Position = { x: this.p1Rocket.x, y: this.p1Rocket.y };
 
@@ -119,7 +127,7 @@ class Space extends Phaser.Scene {
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', { 
                 start: 0, 
-                end: 24, 
+                end: 9, 
                 first: 0
             }),
             frameRate: 30
@@ -310,8 +318,7 @@ class Space extends Phaser.Scene {
         let scoreConfig = {
             fontFamily: 'Major Mono Display',
             fontSize: '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            color: '#DEB64B',
             align: 'right',
             padding: {
             top: 5,
@@ -321,15 +328,20 @@ class Space extends Phaser.Scene {
         };
 
         // end screen text
-        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2 - 64, 'GAME OVER', scoreConfig).setOrigin(0.5);
+        this.gameOverText = this.add.text(game.config.width / 2, game.config.height / 2 - 128, 'GAME OVER', scoreConfig).setOrigin(0.5);
+        // credits
+        this.creditsText = this.add.text(game.config.width / 2, game.config.height / 2, '__Credits__', scoreConfig).setOrigin(0.5);
+        this.creditName = this.add.text(game.config.width / 2, game.config.height / 2 + 64, 'Dean Cruz - Everything', scoreConfig).setOrigin(0.5);
         // space to start end screen
-        this.spaceToStartText = this.add.text(game.config.width / 2, game.config.height / 2, 'Press SPACE', scoreConfig).setOrigin(0.5);
+        this.spaceToStartText = this.add.text(game.config.width / 2, game.config.height / 2 - 64, 'Press SPACE', scoreConfig).setOrigin(0.5);
 
         // flag game over condition
         this.gameOver = true;
     
         // store end screen text objects in the array
         this.endScreenText.push(this.gameOverText);
+        this.endScreenText.push(this.creditsText);
+        this.endScreenText.push(this.creditName);
         this.endScreenText.push(this.spaceToStartText);
 
         // check key input to return to menu
